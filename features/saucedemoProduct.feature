@@ -1,0 +1,37 @@
+Feature: Add Products to Cart
+
+@checkpoint
+Scenario: Add a single product to the cart
+  Given I am logged into the Saucedemo site
+  And I am on the inventory page
+  When I click on the "Add to cart" button for "Sauce Labs Backpack"
+  Then the "Add to cart" button for "Sauce Labs Backpack" should change to "Remove"
+  And the shopping cart icon should display "1"
+
+@checkpoint
+Scenario: Verify the product appears in the cart
+  Given I am logged into the Saucedemo site
+  And I am on the inventory page
+  When I click the "Add to cart" button for the "Sauce Labs Backpack"
+  Then the shopping cart badge should display "1"
+  When I click on the shopping cart icon
+  Then I should be on the cart page
+  And the cart should contain "Sauce Labs Backpack"
+
+@check
+Scenario: Successfully add multiple products to the cart and verify they're in the cart
+  Given I am logged into the Saucedemo site
+  And I am on the inventory page
+  When I click on the "Add to cart" button for "Sauce Labs Backpack"
+  And I click on the "Add to cart" button for "Sauce Labs Bike Light"
+  And I click on the "Add to cart" button for "Sauce Labs Bolt T-Shirt"
+  Then the shopping cart icon should display "3" items
+  And the "Add to cart" button for "Sauce Labs Backpack" should be "Remove"
+  And the "Add to cart" button for "Sauce Labs Bike Light" should be "Remove"
+  And the "Add to cart" button for "Sauce Labs Bolt T-Shirt" should be "Remove"
+  When I click on the shopping cart icon
+  Then I should be on the cart page
+  And the cart should contain "Sauce Labs Backpack"
+  And the cart should contain "Sauce Labs Bike Light"
+  And the cart should contain "Sauce Labs Bolt T-Shirt"
+
