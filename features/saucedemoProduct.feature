@@ -18,7 +18,7 @@ Scenario: Verify the product appears in the cart
   Then I should be on the cart page
   And the cart should contain "Sauce Labs Backpack"
 
-@check
+@checkpoint
 Scenario: Successfully add multiple products to the cart and verify they're in the cart
   Given I am logged into the Saucedemo site
   And I am on the inventory page
@@ -35,3 +35,19 @@ Scenario: Successfully add multiple products to the cart and verify they're in t
   And the cart should contain "Sauce Labs Bike Light"
   And the cart should contain "Sauce Labs Bolt T-Shirt"
 
+@checkpoint
+Scenario Outline: Successfully add a product to the cart and verify it's in the cart
+  Given I am logged into the Saucedemo site
+  And I am on the inventory page
+  When I click on the "Add to cart" button for "<product>"
+  Then the shopping cart icon should display "1" items
+  And the "Add to cart" button for "<product>" should be "Remove"
+  When I click on the shopping cart icon
+  Then I should be on the cart page
+  And the cart should contain "<product>"
+
+Examples:
+  | product                  |
+  | Sauce Labs Backpack      |
+  | Sauce Labs Bike Light    |
+  | Sauce Labs Bolt T-Shirt  |

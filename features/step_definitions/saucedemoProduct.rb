@@ -58,3 +58,15 @@ end
 Then('the shopping cart icon should display {string}') do |count|
   expect(find('.shopping_cart_badge').text).to eq(count)
 end
+
+When('I add the following products to the cart: {string}') do |products_string|
+  products_string.split(',').map(&:strip).each do |product_name|
+    find('.inventory_item_name', text: product_name).ancestor('.inventory_item').click_button('Add to cart')
+  end
+end
+
+Then('the cart should contain the following products: {string}') do |products_string|
+  products_string.split(',').map(&:strip).each do |product_name|
+    expect(page).to have_css('.inventory_item_name', text: product_name)
+  end
+end
