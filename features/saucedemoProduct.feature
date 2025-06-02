@@ -1,4 +1,8 @@
-Feature: Add Products to Cart
+Feature: Saucedemo Product Interaction and Cart Functionality  
+  As a QA automation student  
+  I want to test product-related actions on the Saucedemo site  
+  So I can understand how to use Capybara for adding items to the cart and verifying their presence
+
 
 @checkpoint
 Scenario: Add a single product to the cart
