@@ -30,7 +30,7 @@ When('I click on the "Logout" link') do
 end
 
 Then('I should be redirected to the login page') do
-  expect(page).to have_current_path('https://www.saucedemo.com/inventory.html', url: true, wait: 5)
+  expect(page).to have_current_path('https://www.saucedemo.com/', url: true, wait: 5)
 end
 
 #añadir al carrito polera

@@ -30,3 +30,6 @@ Given(/^I am on the Swag Labs login page$/) do
     puts "Login successful and redirected to inventory page."
   end
   
+When('I press the {string} button') do |button_text|
+find('#login-button').click
+end
