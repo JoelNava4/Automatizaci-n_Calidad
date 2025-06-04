@@ -10,7 +10,7 @@ end
 
 Then('the {string} button for {string} should change to {string}') do |_, product_name, expected_text|
 sleep 3 # Espera para que el botón cambie de estad
-  product = find('.inventory-item-name', text: product_name)
+  product = find('.inventory_item', text: product_name)
   expect(product).to have_button(expected_text)
 end
 
@@ -70,3 +70,7 @@ Then('the cart should contain the following products: {string}') do |products_st
     expect(page).to have_css('.inventory_item_name', text: product_name)
   end
 end
+
+#escenarios mas expresivos
+#añadir mas validaciones
+#
