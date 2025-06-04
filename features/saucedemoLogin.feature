@@ -18,7 +18,7 @@ Feature: Swag Labs Login
     And I enter "secret_sauce" as password
     And I press the "Login" button on Swag Labs
     Then I should be redirected to the inventory page
-
+  
   @maximize
   Scenario Outline: Login with multiple valid users
     When I enter "<username>" as username

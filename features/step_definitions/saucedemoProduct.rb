@@ -1,7 +1,3 @@
-Given('I am on the inventory page') do
-  expect(page).to have_current_path('https://www.saucedemo.com/inventory.html', url: true)
-end
-
 When('I click on the {string} button for {string}') do |button_text, product_name|
     sleep 3 # Espera para que el botón esté disponible
   product = find('.inventory_item', text: product_name)
