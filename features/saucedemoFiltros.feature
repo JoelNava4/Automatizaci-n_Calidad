@@ -25,5 +25,11 @@ Scenario Outline: Filter products by different criteria
     | Price (low to high) | price ascending         |
     | Price (high to low) | price descending        |
 
-  
+@checka
+Scenario: Sort products by Name (A to Z)
+  Given I am on the inventory page
+  When I select "Name (A to Z)" from the product sort dropdown
+  Then the first product should be "Sauce Labs Backpack"
+  And the second product should be "Sauce Labs Bike Light"
+
 
