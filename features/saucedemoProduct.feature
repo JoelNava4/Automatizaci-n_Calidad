@@ -21,29 +21,25 @@ Scenario: Verify the product appears in the cart
     Then I should be on the cart page
     And the cart should contain "Sauce Labs Backpack"
 
-@checkpoint
-Scenario Outline: Successfully add multiple products to the cart and verify they're in the cart
-  When I click on the "Add to cart" button for "<Product 1>"
-  And I click on the "Add to cart" button for "<Product 2>"
-  And I click on the "Add to cart" button for "<Product 3>"
+@check
+Scenario: Successfully add multiple products to the cart and verify they're in the cart
+  When I click on the "Add to cart" button for "Sauce Labs Backpack"
+  And I click on the "Add to cart" button for "Sauce Labs Bike Light"
+  And I click on the "Add to cart" button for "Sauce Labs Bolt T-Shirt"
   Then the shopping cart icon should display "3" items
-  And the "Add to cart" button for "<Product 1>" should be "Remove"
-  And the "Add to cart" button for "<Product 2>" should be "Remove"
-  And the "Add to cart" button for "<Product 3>" should be "Remove"
+  And the "Add to cart" button for "Sauce Labs Backpack" should be "Remove"
+  And the "Add to cart" button for "Sauce Labs Bike Light" should be "Remove"
+  And the "Add to cart" button for "Sauce Labs Bolt T-Shirt" should be "Remove"
   When I click on the shopping cart icon
   Then I should be on the cart page
-  And the cart should contain "<Product 1>"
-  And the cart should contain "<Product 2>"
-  And the cart should contain "<Product 3>"
-
-Examples:
-  | Product 1             | Product 2               | Product 3                   |
-  | Sauce Labs Backpack   | Sauce Labs Bike Light   | Sauce Labs Bolt T-Shirt     |
+  And the cart should contain "Sauce Labs Backpack"
+  And the cart should contain "Sauce Labs Bike Light"
+  And the cart should contain "Sauce Labs Bolt T-Shirt"
 
 
 
 
-@check
+@checkpoint
 Scenario Outline: Successfully add a product to the cart and verify it's in the cart
   When I click on the "Add to cart" button for "<product>"
   Then the shopping cart icon should display "1" items

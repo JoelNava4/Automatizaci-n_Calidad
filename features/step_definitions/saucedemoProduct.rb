@@ -1,11 +1,11 @@
 When('I click on the {string} button for {string}') do |button_text, product_name|
-    sleep 3 # Espera para que el botón esté disponible
+
   product = find('.inventory_item', text: product_name)
   product.click_button(button_text)
 end
 
 Then('the {string} button for {string} should change to {string}') do |_, product_name, expected_text|
-sleep 3 # Espera para que el botón cambie de estad
+ # Espera para que el botón cambie de estad
   product = find('.inventory_item', text: product_name)
   expect(product).to have_button(expected_text)
 end
@@ -21,28 +21,19 @@ Then('the shopping cart icon should display {string} items') do |count|
 end
 
 When('I click on the shopping cart icon') do
-  # Aceptar alerta del navegador si está presente
-  begin
-     sleep 3
-    alert = page.driver.browser.switch_to.alert
-    puts "Alerta detectada: #{alert.text}"
-    alert.accept
-  rescue Selenium::WebDriver::Error::NoSuchAlertError
-    puts "No se detectó ninguna alerta"
-  end
-
+    sleep 3
   # Ahora clic en el ícono del carrito
   find('a.shopping_cart_link', match: :first).click
   expect(page).to have_current_path(/cart\.html/, wait: 5)
 end
 
 Then('I should be on the cart page') do
-     sleep 3
+    sleep 3
      expect(page).to have_current_path(/cart\.html/, wait: 5)
 end
 
 Then('the cart should contain {string}') do |product_name|
-     sleep 3
+   
   expect(page).to have_css('.inventory_item_name', text: product_name)
 end
 
@@ -70,3 +61,12 @@ end
 #escenarios mas expresivos
 #añadir mas validaciones
 #
+Then('the "Remove" button should be visible for {string}') do |product_name|
+  product = find('.inventory_item', text: product_name)
+  expect(product).to have_button('Remove')
+end
+
+Then('the "Add to cart" button should be visible for {string}') do |product_name|
+  product = find('.inventory_item', text: product_name)
+  expect(product).to have_button('Add to cart')
+end

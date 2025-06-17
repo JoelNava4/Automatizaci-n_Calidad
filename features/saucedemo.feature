@@ -20,7 +20,7 @@ Scenario: add Sauce Labs Backpack to the cart
     When I click the "Add to cart" button for the "Sauce Labs Backpack"
     Then the shopping cart badge should display "1"
 
-@check
+@checkpoint
 Scenario: remove Sauce Labs Backpack from the cart
   Given I am logged into the Saucedemo site
   And I have added the "Sauce Labs Backpack" to the cart
