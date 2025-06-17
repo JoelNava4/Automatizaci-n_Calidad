@@ -19,14 +19,27 @@ Capybara.default_driver = :selenium_chrome
 Capybara.app_host = "https://www.saucedemo.com/"
 
 class CapybaraDriverRegistrar
-  # register a Selenium driver for the given browser to run on the localhost
+  # Register a Selenium driver for the given browser to run on the localhost
   def self.register_selenium_driver(browser)
     Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => browser)
+      options = case browser
+                when :chrome
+                  Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+                    opts.add_argument('--incognito')
+                  end
+                when :firefox
+                  Selenium::WebDriver::Firefox::Options.new.tap do |opts|
+                    opts.add_argument('-private')
+                  end
+                else
+                  raise ArgumentError, "Unsupported browser: #{browser}"
+                end
+
+      Capybara::Selenium::Driver.new(app, browser: browser, options: options)
     end
   end
-
 end
+
 # Register various Selenium drivers
 #CapybaraDriverRegistrar.register_selenium_driver(:internet_explorer)
 #CapybaraDriverRegistrar.register_selenium_driver(:firefox)
