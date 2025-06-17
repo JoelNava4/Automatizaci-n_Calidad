@@ -1,6 +1,7 @@
 Given('I am on the Saucedemo site') do
   visit 'https://www.saucedemo.com/'
 end
+
 Given('I enter my user and password') do
   fill_in 'user-name', with: 'standard_user'
   fill_in 'password', with: 'secret_sauce' 
