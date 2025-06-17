@@ -49,3 +49,5 @@ Then('the products should be sorted in {string} order') do |expected_order|
     raise "Unknown order type: #{expected_order}"
   end
 end
+
+

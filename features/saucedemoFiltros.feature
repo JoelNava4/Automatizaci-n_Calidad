@@ -5,17 +5,16 @@ Feature: Product sorting functionality
 
 @checka
 Scenario: Sort products by Name (A to Z)
-  Given I am logged into the Saucedemo site
-  And I am on the inventory page
+  Given I am on the inventory page
   When I select "Name (A to Z)" from the product sort dropdown
   Then the first product should be "Sauce Labs Backpack"
   And the second product should be "Sauce Labs Bike Light"
   And the third product should be "Sauce Labs Bolt T-Shirt"
 
 
-@checka
+@check
 Scenario Outline: Filter products by different criteria
-  Given I am logged into the Saucedemo site
+  Given I am on the inventory page
   When I select the "<filter>" option
   Then the products should be sorted in "<expectedOrder>" order
 

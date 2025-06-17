@@ -7,7 +7,7 @@ Before '@maximize' do
   page.driver.browser.manage.window.maximize
 end
 
-Before('@checkpoint') do
+Before('@checka') do
   visit 'https://www.saucedemo.com/'
   fill_in 'user-name', with: 'standard_user'
   fill_in 'password', with: 'secret_sauce'
