@@ -1,0 +1,3 @@
+# Ignorar todos los archivos .html y .png que comiencen con screenshot_
+/screenshot_*.html
+/screenshot_*.png
