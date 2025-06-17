@@ -3,24 +3,23 @@ Feature: Saucedemo Product Interaction and Cart Functionality
   I want to test product-related actions on the Saucedemo site  
   So I can understand how to use Capybara for adding items to the cart and verifying their presence
 
+Background:
+  Given I am logged into the Saucedemo site
+  And I am on the inventory page
 
-@checkpoint
+@check
 Scenario: Add a single product to the cart
-  Given I am logged into the Saucedemo site
-  And I am on the inventory page
   When I click on the "Add to cart" button for "Sauce Labs Backpack"
-  Then the "Add to cart" button for "Sauce Labs Backpack" should change to "Remove"
-  And the shopping cart icon should display "1"
+    Then the "Add to cart" button for "Sauce Labs Backpack" should change to "Remove"
+    And the shopping cart icon should display "1"
 
-@checkpoint
+@check
 Scenario: Verify the product appears in the cart
-  Given I am logged into the Saucedemo site
-  And I am on the inventory page
-  When I click the "Add to cart" button for the "Sauce Labs Backpack"
-  Then the shopping cart badge should display "1"
-  When I click on the shopping cart icon
-  Then I should be on the cart page
-  And the cart should contain "Sauce Labs Backpack"
+ When I click the "Add to cart" button for the "Sauce Labs Backpack"
+    Then the shopping cart badge should display "1"
+    When I click on the shopping cart icon
+    Then I should be on the cart page
+    And the cart should contain "Sauce Labs Backpack"
 
 @checkpoint
 Scenario: Successfully add multiple products to the cart and verify they're in the cart
