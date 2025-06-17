@@ -3,12 +3,11 @@ Given('I am on the Saucedemo site') do
 end
 Given('I enter my user and password') do
   fill_in 'user-name', with: 'standard_user'
-  fill_in 'password', with: 'secret_sauce' # Write code here that turns the phrase above into concrete actions
+  fill_in 'password', with: 'secret_sauce' 
 end
 Then('I should see the products page') do
   expect(page).to have_content('Products')
 end
-
 
 #logout page
 Given('I am logged into the Saucedemo site') do
@@ -21,7 +20,7 @@ end
 
 When('I open the side menu') do
   find('button[id="react-burger-menu-btn"]').click
-  expect(page).to have_selector('a#logout_sidebar_link', wait: 5)  # espera explícita
+  expect(page).to have_selector('a#logout_sidebar_link', wait: 5) 
 end
 
 
@@ -36,19 +35,25 @@ end
 #añadir al carrito polera
 
 When('I click the {string} button for the {string}') do |button_text, product_name|
-  case product_name
-  when "Sauce Labs Backpack"
-    find('#add-to-cart-sauce-labs-backpack').click
-  when "Sauce Labs Bike Light"
-    find('#add-to-cart-sauce-labs-bike-light').click
-  when "Sauce Labs Bolt T-Shirt"
-    find('#add-to-cart-sauce-labs-bolt-t-shirt').click
-  when "Sauce Labs Fleece Jacket"
-    find('#add-to-cart-sauce-labs-fleece-jacket').click
-  else
-    raise "Product '#{product_name}' not recognized"
-  end# Write code here that turns the phrase above into concrete actions
+  product_ids = {
+    "Sauce Labs Backpack" => "sauce-labs-backpack",
+    "Sauce Labs Bike Light" => "sauce-labs-bike-light",
+    "Sauce Labs Bolt T-Shirt" => "sauce-labs-bolt-t-shirt",
+    "Sauce Labs Fleece Jacket" => "sauce-labs-fleece-jacket"
+  }
+
+  id = product_ids[product_name]
+  raise "Producto '#{product_name}' no reconocido" unless id
+
+  button_id = case button_text
+              when "Add to cart" then "add-to-cart-#{id}"
+              when "Remove" then "remove-#{id}"
+              else raise "Botón '#{button_text}' no reconocido"
+              end
+
+  find("##{button_id}").click
 end
+
 
 Then('the shopping cart badge should display {string}') do |expected_count|
   badge = find('.shopping_cart_badge').text

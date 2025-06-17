@@ -7,13 +7,13 @@ Background:
   Given I am logged into the Saucedemo site
   And I am on the inventory page
 
-@check
+@checkpoint
 Scenario: Add a single product to the cart
   When I click on the "Add to cart" button for "Sauce Labs Backpack"
     Then the "Add to cart" button for "Sauce Labs Backpack" should change to "Remove"
     And the shopping cart icon should display "1"
 
-@check
+@checkpoint
 Scenario: Verify the product appears in the cart
  When I click the "Add to cart" button for the "Sauce Labs Backpack"
     Then the shopping cart badge should display "1"
@@ -22,26 +22,29 @@ Scenario: Verify the product appears in the cart
     And the cart should contain "Sauce Labs Backpack"
 
 @checkpoint
-Scenario: Successfully add multiple products to the cart and verify they're in the cart
-  Given I am logged into the Saucedemo site
-  And I am on the inventory page
-  When I click on the "Add to cart" button for "Sauce Labs Backpack"
-  And I click on the "Add to cart" button for "Sauce Labs Bike Light"
-  And I click on the "Add to cart" button for "Sauce Labs Bolt T-Shirt"
+Scenario Outline: Successfully add multiple products to the cart and verify they're in the cart
+  When I click on the "Add to cart" button for "<Product 1>"
+  And I click on the "Add to cart" button for "<Product 2>"
+  And I click on the "Add to cart" button for "<Product 3>"
   Then the shopping cart icon should display "3" items
-  And the "Add to cart" button for "Sauce Labs Backpack" should be "Remove"
-  And the "Add to cart" button for "Sauce Labs Bike Light" should be "Remove"
-  And the "Add to cart" button for "Sauce Labs Bolt T-Shirt" should be "Remove"
+  And the "Add to cart" button for "<Product 1>" should be "Remove"
+  And the "Add to cart" button for "<Product 2>" should be "Remove"
+  And the "Add to cart" button for "<Product 3>" should be "Remove"
   When I click on the shopping cart icon
   Then I should be on the cart page
-  And the cart should contain "Sauce Labs Backpack"
-  And the cart should contain "Sauce Labs Bike Light"
-  And the cart should contain "Sauce Labs Bolt T-Shirt"
+  And the cart should contain "<Product 1>"
+  And the cart should contain "<Product 2>"
+  And the cart should contain "<Product 3>"
 
-@checkpoint
+Examples:
+  | Product 1             | Product 2               | Product 3                   |
+  | Sauce Labs Backpack   | Sauce Labs Bike Light   | Sauce Labs Bolt T-Shirt     |
+
+
+
+
+@check
 Scenario Outline: Successfully add a product to the cart and verify it's in the cart
-  Given I am logged into the Saucedemo site
-  And I am on the inventory page
   When I click on the "Add to cart" button for "<product>"
   Then the shopping cart icon should display "1" items
   And the "Add to cart" button for "<product>" should be "Remove"
