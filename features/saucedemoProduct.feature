@@ -21,21 +21,18 @@ Scenario: Verify the product appears in the cart
     Then I should be on the cart page
     And the cart should contain "Sauce Labs Backpack"
 
-@check
-Scenario: Successfully add multiple products to the cart and verify they're in the cart
-  When I click on the "Add to cart" button for "Sauce Labs Backpack"
-  And I click on the "Add to cart" button for "Sauce Labs Bike Light"
-  And I click on the "Add to cart" button for "Sauce Labs Bolt T-Shirt"
-  Then the shopping cart icon should display "3" items
-  And the "Add to cart" button for "Sauce Labs Backpack" should be "Remove"
-  And the "Add to cart" button for "Sauce Labs Bike Light" should be "Remove"
-  And the "Add to cart" button for "Sauce Labs Bolt T-Shirt" should be "Remove"
+@checkpoint
+Scenario Outline: Successfully add multiple products to the cart and verify they are in the cart
+  When I add the following products to the cart: "<Products>"
+  Then the shopping cart icon should display "<Count>" items
+  And the "Remove" button should be visible for "<Products>"
   When I click on the shopping cart icon
   Then I should be on the cart page
-  And the cart should contain "Sauce Labs Backpack"
-  And the cart should contain "Sauce Labs Bike Light"
-  And the cart should contain "Sauce Labs Bolt T-Shirt"
+  And the cart should contain the following products: "<Products>"
 
+Examples:
+  | Products                                                            | Count |
+  | Sauce Labs Backpack, Sauce Labs Bike Light, Sauce Labs Bolt T-Shirt | 3     |
 
 
 
