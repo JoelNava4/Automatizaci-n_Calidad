@@ -33,7 +33,7 @@ Then('I should be on the cart page') do
 end
 
 Then('the cart should contain {string}') do |product_name|
-   
+   sleep 3
   expect(page).to have_css('.inventory_item_name', text: product_name)
 end
 
@@ -62,15 +62,13 @@ end
 #añadir mas validaciones
 #
 Then('the "Remove" button should be visible for {string}') do |products_string|
-  products = products_string.split(',').map(&:strip)
-  products.each do |product_name|
-    product = find('.inventory_item', text: product_name)
+  products_string.split(',').map(&:strip).each do |product_name|
+    product = find('.inventory_item_name', text: product_name).ancestor('.inventory_item')
     expect(product).to have_button('Remove')
   end
 end
 
 Then('the "Add to cart" button should be visible for {string}') do |product_name|
-  sleep 3
   product = find('.inventory_item', text: product_name)
   expect(product).to have_button('Add to cart')
 end
