@@ -23,5 +23,3 @@ Scenario: remove Sauce Labs Backpack from the cart
   And I have added the "Sauce Labs Backpack" to the cart
   When I click the "Remove" button for the "Sauce Labs Backpack"
   Then the shopping cart badge should not be visible
-
-
