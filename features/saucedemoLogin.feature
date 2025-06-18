@@ -6,6 +6,13 @@ Feature: Swag Labs Login
   Background:
     Given I am on the Swag Labs login page
 
+
+  @check
+  Scenario: successfully login on Saucedemo site
+    And I enter my user and password
+    When I press the "login" button
+    Then I should see the products page
+
   @clean_session
   @maximize
   Scenario: Login with empty username and password

@@ -21,7 +21,7 @@ Scenario: Verify the product appears in the cart
     Then I should be on the cart page
     And the cart should contain "Sauce Labs Backpack"
 
-@checkpoint
+@check
 Scenario Outline: Successfully add multiple products to the cart and verify they are in the cart
   When I add the following products to the cart: "<Products>"
   Then the shopping cart icon should display "<Count>" items
