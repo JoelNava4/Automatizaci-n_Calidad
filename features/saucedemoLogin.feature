@@ -6,19 +6,22 @@ Feature: Swag Labs Login
   Background:
     Given I am on the Swag Labs login page
 
+  @clean_session
   @maximize
   Scenario: Login with empty username and password
     When I leave username and password empty
     And I press the "Login" button on Swag Labs
     Then I should see the error message "Epic sadface: Username is required"
 
+  @clean_session
   @maximize
   Scenario: Login with valid standard_user credentials
     When I enter "standard_user" as username
     And I enter "secret_sauce" as password
     And I press the "Login" button on Swag Labs
     Then I should be redirected to the inventory page
-  
+    
+  @clean_session
   @maximize
   Scenario Outline: Login with multiple valid users
     When I enter "<username>" as username

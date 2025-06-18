@@ -14,3 +14,8 @@ Before('@checka') do
   click_button 'Login'
   expect(page).to have_current_path('/inventory.html')
 end
+
+Before('@clean_session') do
+  page.driver.browser.manage.delete_all_cookies
+end
+
