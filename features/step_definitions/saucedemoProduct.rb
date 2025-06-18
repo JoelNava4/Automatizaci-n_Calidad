@@ -61,9 +61,12 @@ end
 #escenarios mas expresivos
 #añadir mas validaciones
 #
-Then('the "Remove" button should be visible for {string}') do |product_name|
-  product = find('.inventory_item', text: product_name)
-  expect(product).to have_button('Remove')
+Then('the "Remove" button should be visible for {string}') do |products_string|
+  products = products_string.split(',').map(&:strip)
+  products.each do |product_name|
+    product = find('.inventory_item', text: product_name)
+    expect(product).to have_button('Remove')
+  end
 end
 
 Then('the "Add to cart" button should be visible for {string}') do |product_name|
