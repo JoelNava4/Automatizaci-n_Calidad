@@ -29,12 +29,9 @@ Scenario Outline: Successfully add multiple products to the cart and verify they
   When I click on the shopping cart icon
   Then I should be on the cart page
   And the cart should contain the following products: "<Products>"
-
 Examples:
   | Products                                                            | Count |
   | Sauce Labs Backpack, Sauce Labs Bike Light, Sauce Labs Bolt T-Shirt | 3     |
-
-
 
 @checkpoint
 Scenario Outline: Successfully add a product to the cart and verify it's in the cart
@@ -44,7 +41,6 @@ Scenario Outline: Successfully add a product to the cart and verify it's in the 
   When I click on the shopping cart icon
   Then I should be on the cart page
   And the cart should contain "<product>"
-
 Examples:
   | product                  |
   | Sauce Labs Backpack      |
