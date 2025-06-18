@@ -1,9 +1,11 @@
 Feature: Saucedemo Verify Registration
 
-Background:
-  Given I am logged into the Saucedemo site
-  And I am on the inventory page
-    
+@checkpoint
+Scenario: successfully login on Saucedemo site
+    Given I am on the Saucedemo site
+    And I enter my user and password
+    When I press the "Login" button
+    Then I should see the products page
 
 @checkpoint
 Scenario: successfully logout from Saucedemo site

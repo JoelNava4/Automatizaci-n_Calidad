@@ -1,104 +1,65 @@
+require_relative '../pages_objects/login_page'
+require_relative '../pages_objects/products_page'
+
+login_page = LoginPage.new
+products_page = ProductsPage.new
+
 Given('I am on the Saucedemo site') do
-  visit 'https://www.saucedemo.com/'
+  login_page.visit_page
 end
 
 Given('I enter my user and password') do
-  fill_in 'user-name', with: 'standard_user'
-  fill_in 'password', with: 'secret_sauce' 
-end
-Then('I should see the products page') do
-  expect(page).to have_content('Products')
+  login_page.fill_username('standard_user')
+  login_page.fill_password('secret_sauce')
 end
 
-#logout page
+When('I press the {string} button') do |button_text|
+  click_button(button_text)
+end
+
+Then('I should see the products page') do
+  expect(products_page.on_products_page?).to be true
+end
+
 Given('I am logged into the Saucedemo site') do
-  visit 'https://www.saucedemo.com/'
-  fill_in 'user-name', with: 'standard_user'
-  fill_in 'password', with: 'secret_sauce'
-  click_button 'Login'
-  expect(page).to have_content('Products')
+  login_page.login_as('standard_user', 'secret_sauce')
+  expect(products_page.on_products_page?).to be true
 end
 
 When('I open the side menu') do
-  find('button[id="react-burger-menu-btn"]').click
-  expect(page).to have_selector('a#logout_sidebar_link', wait: 5) 
+  products_page.open_menu
+  expect(page).to have_selector('a#logout_sidebar_link', wait: 5)
 end
 
-
 When('I click on the "Logout" link') do
-  find('a#logout_sidebar_link').click
+  products_page.click_logout
 end
 
 Then('I should be redirected to the login page') do
-  expect(page).to have_current_path('https://www.saucedemo.com/', url: true, wait: 5)
+  expect(login_page.on_login_page?).to be true
 end
-
-#añadir al carrito polera
 
 When('I click the {string} button for the {string}') do |button_text, product_name|
-  product_ids = {
-    "Sauce Labs Backpack" => "sauce-labs-backpack",
-    "Sauce Labs Bike Light" => "sauce-labs-bike-light",
-    "Sauce Labs Bolt T-Shirt" => "sauce-labs-bolt-t-shirt",
-    "Sauce Labs Fleece Jacket" => "sauce-labs-fleece-jacket"
-  }
-
-  id = product_ids[product_name]
-  raise "Producto '#{product_name}' no reconocido" unless id
-
-  button_id = case button_text
-              when "Add to cart" then "add-to-cart-#{id}"
-              when "Remove" then "remove-#{id}"
-              else raise "Botón '#{button_text}' no reconocido"
-              end
-
-  find("##{button_id}").click
+  products_page.click_cart_button(product_name, button_text)
 end
-
 
 Then('the shopping cart badge should display {string}') do |expected_count|
-  badge = find('.shopping_cart_badge').text
-  expect(badge).to eq(expected_count) # Write code here that turns the phrase above into concrete actions
+  expect(products_page.cart_badge_count).to eq(expected_count)
 end
-#quitar del carrito
 
-#validar que el producto ya no esta 
 Then('the shopping cart badge should not be visible') do
-  expect(page).not_to have_css('.shopping_cart_badge')
+  expect(products_page.cart_badge_visible?).to be false
 end
 
-# agregar al carrito como paso previo
 Given('I have added the {string} to the cart') do |product_name|
-  # Solo hace login si aún no está en la página de productos
-  unless page.has_css?('#inventory_container')
-    visit 'https://www.saucedemo.com/'
-    fill_in 'user-name', with: 'standard_user'
-    fill_in 'password', with: 'secret_sauce'
-    click_button 'Login'
-    expect(page).to have_content('Products')
-  end
-
-  case product_name
-  when "Sauce Labs Backpack"
-    unless has_css?('#remove-sauce-labs-backpack') # ya está agregado
-      find('#add-to-cart-sauce-labs-backpack').click
-    end
-  else
-    raise "Producto '#{product_name}' no reconocido"
-  end
+  login_page.login_as('standard_user', 'secret_sauce') unless products_page.on_products_page?
+  products_page.add_product(product_name)
 end
 
 When('I sort the products by {string}') do |sort_option|
-    dropdown = nil
-  using_wait_time 10 do
-     dropdown = find('select[data-test="product_sort_container"]', visible: true)
-  end
-    dropdown.select(sort_option)
+  products_page.select_sort_option(sort_option)
 end
-
 
 Then('the first product should be {string}') do |expected_product|
-  first_product = all('.inventory_item_name').first.text
-  expect(first_product).to eq(expected_product)
+  expect(products_page.first_product_name).to eq(expected_product)
 end
-
