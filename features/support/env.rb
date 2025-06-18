@@ -31,6 +31,7 @@ Capybara.register_driver :chrome do |app|Add commentMore actions
   options.add_argument('--disable-notifications')
   options.add_argument('--incognito')
   options.add_argument('--start-maximized')
+  options.add_argument('--disable-gpu') # Para evitar problemas en algunos sistemas
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end

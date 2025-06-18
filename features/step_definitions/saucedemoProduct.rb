@@ -70,6 +70,7 @@ Then('the "Remove" button should be visible for {string}') do |products_string|
 end
 
 Then('the "Add to cart" button should be visible for {string}') do |product_name|
+  sleep 3
   product = find('.inventory_item', text: product_name)
   expect(product).to have_button('Add to cart')
 end
