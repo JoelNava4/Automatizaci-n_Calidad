@@ -8,6 +8,13 @@ class ProductsPage
     "Sauce Labs Fleece Jacket" => "sauce-labs-fleece-jacket"
   }.freeze
 
+  SORT_VALUES = {
+    "Name (A to Z)" => "az",
+    "Name (Z to A)" => "za",
+    "Price (low to high)" => "lohi",
+    "Price (high to low)" => "hilo"
+  }.freeze
+
   def on_products_page?
     page.has_content?('Products')
   end
@@ -17,10 +24,8 @@ class ProductsPage
   end
 
   def selected_sort_option?(option)
-    has_selector?(
-      '#header_container > div.header_secondary_container > div > span > select > option',
-      text: option
-    )
+    selected_value = find('select.product_sort_container').value
+    selected_value == SORT_VALUES[option]
   end
 
   def product_names

@@ -3,7 +3,7 @@ require_relative '../pages_objects/products_page'
 products_page = ProductsPage.new
 
 When('I select {string} from the product sort dropdown') do |option|
-  expect(products_page.selected_sort_option(option)).to be true
+  expect(products_page.selected_sort_option?(option)).to be true
 end
 
 When('I select the {string} option') do |option|
