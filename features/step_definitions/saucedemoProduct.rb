@@ -11,29 +11,25 @@ Then('the {string} button for {string} should change to {string}') do |_, produc
 end
 
 Then('the shopping cart icon should display {string} item') do |count|
-    sleep 3
   expect(find('.shopping_cart_badge').text).to eq(count)
 end
 
 Then('the shopping cart icon should display {string} items') do |count|
-     sleep 3
   expect(find('.shopping_cart_badge').text).to eq(count)
 end
 
 When('I click on the shopping cart icon') do
-    sleep 3
   # Ahora clic en el ícono del carrito
   find('a.shopping_cart_link', match: :first).click
   expect(page).to have_current_path(/cart\.html/, wait: 5)
 end
 
 Then('I should be on the cart page') do
-    sleep 3
+
      expect(page).to have_current_path(/cart\.html/, wait: 5)
 end
 
 Then('the cart should contain {string}') do |product_name|
-   sleep 3
   expect(page).to have_css('.inventory_item_name', text: product_name)
 end
 

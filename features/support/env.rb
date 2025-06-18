@@ -12,7 +12,6 @@ Capybara.register_driver :chrome do |app|
   options.add_argument('--disable-extensions')
   options.add_argument('--disable-notifications')
   options.add_argument('--incognito')
-  options.add_argument('--start-maximized')
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
