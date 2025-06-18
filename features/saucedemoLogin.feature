@@ -7,7 +7,7 @@ Feature: Swag Labs Login
     Given I am on the Swag Labs login page
 
 
-  @check
+  @checkpoint
   Scenario: successfully login on Saucedemo site
     And I enter my user and password
     When I press the "login" button

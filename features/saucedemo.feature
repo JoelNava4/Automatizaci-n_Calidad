@@ -5,7 +5,7 @@ Background:
   And I am on the inventory page
     
 
-@check
+@checkpoint
 Scenario: successfully logout from Saucedemo site
     When I open the side menu
     And I click on the "Logout" link
