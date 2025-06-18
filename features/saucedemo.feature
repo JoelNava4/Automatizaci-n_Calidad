@@ -4,7 +4,7 @@ Feature: Saucedemo Verify Registration
 Scenario: successfully login on Saucedemo site
     Given I am on the Saucedemo site
     And I enter my user and password
-    When I press the "login" button
+    When I press the "Login" button
     Then I should see the products page
 
 @checkpoint

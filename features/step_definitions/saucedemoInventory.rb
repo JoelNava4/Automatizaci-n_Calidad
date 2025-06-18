@@ -1,47 +1,39 @@
-require 'capybara/cucumber'
-require 'selenium-webdriver'
+require_relative '../pages_objects/inventory_page'
 
-# Step Definitions para Inventory Feature
+inventory_page = InventoryPage.new
 
 Given('I am logged in as {string} with password {string}') do |username, password|
-  visit 'https://www.saucedemo.com/'
-  fill_in 'user-name', with: username
-  fill_in 'password', with: password
-  click_button 'Login'
+  inventory_page.login(username, password)
 end
 
 Given('I am on the inventory page') do
-  expect(page).to have_current_path(/inventory\.html/)
+  expect(inventory_page.on_inventory_page?).to be true
 end
 
-Then('I should see the page title {string}') do |title|
-  expect(page.title).to eq(title)
+Then('I should see the page title {string}') do |expected_title|
+  expect(inventory_page.title).to eq(expected_title)
 end
 
 When('I click "Add to cart" button for product {string}') do |product_name|
-  product = find('div.inventory_item', text: product_name)
-  product.click_button('Add to cart')
+  inventory_page.add_product_to_cart(product_name)
 end
 
 When('I click "Remove" button for product {string}') do |product_name|
-  product = find('div.inventory_item', text: product_name)
-  product.click_button('Remove')
+  inventory_page.remove_product_from_cart(product_name)
 end
 
 Then('the cart icon should display {string}') do |count|
-  badge = find('.shopping_cart_badge')
-  expect(badge.text).to eq(count)
+  expect(inventory_page.cart_count).to eq(count)
 end
 
 Then('the cart icon should not be visible') do
-  expect(page).not_to have_css('.shopping_cart_badge')
+  expect(inventory_page.cart_has_no_items?).to be true
 end
 
 When('I click on product {string}') do |product_name|
-  find('div.inventory_item_name', text: product_name).click
+  inventory_page.open_product_detail(product_name)
 end
 
 Then('I should be redirected to the product details page for {string}') do |product_name|
-  title = find('.inventory_details_name')
-  expect(title.text).to eq(product_name)
+  expect(inventory_page.current_product_name).to eq(product_name)
 end
