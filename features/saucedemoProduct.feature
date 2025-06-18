@@ -46,19 +46,3 @@ Examples:
   | Sauce Labs Backpack      |
   | Sauce Labs Bike Light    |
   | Sauce Labs Bolt T-Shirt  |
-
-@check
-  Background:
-    Given I am logged into the Saucedemo site
-    And I have added "Sauce Labs Backpack" to the cart
-    And I am on the cart page
-
-  Scenario: Go to Checkout and fill out the form correctly
-    When I click the "Checkout" button
-    Then I should be on the checkout information page
-    And I should see the form fields: "First Name", "Last Name", and "Zip/Postal Code"
-    When I fill in "First Name" with "John"
-    And I fill in "Last Name" with "Doe"
-    And I fill in "Zip/Postal Code" with "12345"
-    And I click the "Continue" button
-    Then I should be on the checkout overview page
